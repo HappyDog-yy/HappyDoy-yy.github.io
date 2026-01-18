@@ -114,7 +114,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>Git管理文件夹的步骤</li>
 </ul>
 <pre class="notranslate"><code class="notranslate">1.进入要管理的文件夹
-2.初始化（相当于给Git一个权限）
+2.初始化（相当于给Git一个权限，文件夹下会生成.Git隐藏文件夹）
 3.管理
 4.生成版本
 </code></pre>
@@ -137,6 +137,8 @@ git add 文件名(管理某文件)</pre></div>
 </ul>
 <pre class="notranslate"><code class="notranslate">git log
 </code></pre>
+<p>可看到每个提交记录的版本号，便于后续回滚操作</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962"><img width="589" height="349" alt="Image" src="https://github.com/user-attachments/assets/ac64d86c-6422-4322-9141-87d9232b2962" style="max-width: 100%; height: auto; max-height: 349px;"></a></p>
 <ul>
 <li>查看管理状态</li>
 </ul>
@@ -146,9 +148,96 @@ git add 文件名(管理某文件)</pre></div>
 绿色-代表已管理但还未提交至版本库
 不显示-代表已管理并提交至版本库
 </code></pre>
+<ul>
+<li>Git三大区域</li>
+</ul>
+<blockquote>
+<p>工作区：实际编辑、修改文件的地方<br>
+暂存区：临时存放即将提交的修改<br>
+版本库：存储所有提交记录的数据库</p>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/c43bc29d-5da4-4895-87fb-5b6ef2715ed4"><img width="2000" height="1528" alt="Image" src="https://github.com/user-attachments/assets/c43bc29d-5da4-4895-87fb-5b6ef2715ed4" style="max-width: 100%; height: auto; max-height: 1528px;"></a></p>
 <h3>2.2 第二阶段：拓展新功能</h3>
-<p>修改文件之后，文件状态变为未管理的红色</p>
-<h3>2.1 第三阶段：约饭功能</h3></div>
+<p>修改文件之后，文件状态变为未管理的红色，可重新 <code class="notranslate">add</code> 并 <code class="notranslate">commit</code> 至版本库。</p>
+<h3>2.3 第三阶段：回滚</h3>
+<ul>
+<li>回滚至之前版本</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git reset --hard 版本号</pre></div>
+<p>版本号通过 <code class="notranslate">git log</code> 命令获取</p>
+<ul>
+<li>回滚至之后版本</li>
+</ul>
+<blockquote>
+<p>回滚至v2之后， <code class="notranslate">git log</code> 命令查看不到v3的版本号，此时再使用 <code class="notranslate">git reflog</code> 便可查看v3版本号，如下所示：</p>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/25724509-7277-4d76-bbe4-73cedaf7270d"><img width="724" height="363" alt="Image" src="https://github.com/user-attachments/assets/25724509-7277-4d76-bbe4-73cedaf7270d" style="max-width: 100%; height: auto; max-height: 363px;"></a></p>
+<h3>2.4 第四阶段：三大区域之间的转换</h3>
+<ul>
+<li>撤销对于某文件的修改</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout -- 文件名</pre></div>
+<p>该命令可用于撤销未 <code class="notranslate">add</code> 文件的修改，用版本库里的文件直接覆盖（直接丢弃工作区的修改），无法撤销。</p>
+<ul>
+<li>撤销<code class="notranslate">add</code>暂存命令</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git reset HEAD -- 文件名</pre></div>
+<p>仅撤销暂存命令，对于工作区的修改仍保留，文件状态由绿色变成红色。</p>
+<h2>第三章 分支</h2>
+<h3>3.1初识分支</h3>
+<p>不同版本之间通过指针建立联系，v2在v1的基础上修改，增量保存，只保存相对于v1新增和修改的部分。这样不仅更节省空间，生成版本的速度也更快。</p>
+<ul>
+<li>如何解决线上代码出现bug的问题？</li>
+</ul>
+<blockquote>
+<p>创建一个新的分支，对代码进行紧急修复，修复完成之后合并到主分支（默认为master分支）。<br>
+eg.创建的每一个分支都可以起一个名字，在v3的基础上创建bug分支用于修复bug；创建dev分支用于开发新功能。最后将修复完bug的分支合并到master分支上。不同的分支之间可以做环境的隔离。</p>
+</blockquote>
+<h3>3.2分支命令</h3>
+<ul>
+<li>创建新的分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch 新分支名</pre></div>
+<ul>
+<li>查看目前所处分支（*所在行的分支）</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch</pre></div>
+<ul>
+<li>切换分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout 分支名
+<span class="pl-c"><span class="pl-c">#</span>或</span>
+git switch 分支名</pre></div>
+<p>创建新分支bug--&gt;切换到分支bug--&gt;修改代码--&gt; <code class="notranslate">commit</code> 提交版本v4，可创建bug分支的版本v4。</p>
+<ul>
+<li>合并分支<br>
+将bug分支的v4版本合并到master分支上： <code class="notranslate">切换到master分支</code> --&gt; <code class="notranslate">合并</code></li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git merge 要合并的分支</pre></div>
+<blockquote>
+<p>v4和v5都是基于v3进行修改，当v4和v5都修改了v3的同一行，且最后都要合并到v3时，会产生合并冲突，此时需要打开发生冲突的文件，<strong>手动合并</strong>并提交。</p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre class="notranslate">CONFLICT (content): Merge conflict <span class="pl-k">in</span> index.html
+Automatic merge failed<span class="pl-k">;</span> fix conflicts and <span class="pl-k">then</span> commit the result.</pre></div>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/663c91f1-5063-4ad6-9973-1790eb04a2d5"><img width="711" height="346" alt="Image" src="https://github.com/user-attachments/assets/663c91f1-5063-4ad6-9973-1790eb04a2d5" style="max-width: 100%; height: auto; max-height: 346px;"></a></p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git add <span class="pl-c1">.</span>
+git commit -m <span class="pl-s"><span class="pl-pds">'</span>v6，解决冲突，bug修复且dev分支新功能上线<span class="pl-pds">'</span></span></pre></div>
+<ul>
+<li>删除分支</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch -d 分支名</pre></div>
+<h3>3.3工作流</h3>
+<ul>
+<li>Git开发规范<br>
+<code class="notranslate">master</code> 分支存放相对稳定的版本，创建 <code class="notranslate">dev</code> 分支用于开发，版本的更替都在dev分支上，出现相对稳定的版本再合并到 <code class="notranslate">master</code> 分支。</li>
+<li>代码托管仓库<br>
+创建仓库--&gt;推送本地代码至仓库(所有的版本和分支)</li>
+</ul>
+<blockquote>
+<p>github：公共的仓库，private付费<br>
+gitlab：自己买服务器，自建仓库</p>
+</blockquote>
+<p>上传和拉取代码</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
