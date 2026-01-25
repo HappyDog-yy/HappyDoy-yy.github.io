@@ -152,6 +152,14 @@ string *p4 = <span class="pl-k">new</span> string(<span class="pl-s"><span class
 
 <span class="pl-c"><span class="pl-c">//</span>2.不初始化，元素为随机值</span>
 <span class="pl-k">int</span> * p2 = <span class="pl-k">new</span> <span class="pl-k">int</span>[<span class="pl-c1">10</span>];</pre></div>
+<h3>3.C++中动态数组 <code class="notranslate">vector</code></h3>
+<p><code class="notranslate">vector</code> 是 c++标准库STL中提供的动态数组容器，占用的是连续的堆内存，使用前需包含头文件，有以下特点：</p>
+<ul>
+<li>动态扩容：无需提前指定大小，可根据需要自动增长、收缩；<br>
+扩容原理：申请一块更大的堆内存，将原数据拷贝过去，再释放旧内存。</li>
+<li>自动内存管理：底层自动申请、释放堆内存，无需手动 <code class="notranslate">new/delete</code> ；</li>
+<li>自带丰富的增删改查、排序算法，需包含头文件。</li>
+</ul>
 <h2>第二章：数组与链表</h2>
 <h3>1.链表的创建与初始化</h3>
 <p>链表为线性结构的一种，每个节点包括自身数据和指向下一个节点的指针</p>
@@ -259,7 +267,21 @@ ListNode* <span class="pl-en">visit</span>(ListNode *head,<span class="pl-k">int
 <li><strong>环状链表</strong>：将单链表的尾节点指向头节点，摇身一变双链表。此时每个节点都可看作是头节点。</li>
 <li><strong>双向链表</strong>：每个节点有 <code class="notranslate">自己的数据</code> 、 <code class="notranslate">指向前驱节点的指针</code> 和 <code class="notranslate">指向后继节点的指针</code> ，可双向循环遍历，占用的内存空间也更大。</li>
 </ul>
-<h3>6.链表常见使用场景</h3></div>
+<h3>6.链表常见使用场景</h3>
+<p>单链表通常用于栈与队列、图、哈希表等数据结构。</p>
+<ul>
+<li>栈：插入和删除操作都在链表的一端进行，类似一个容器，后进先出；</li>
+<li>队列：插入和删除在链表的两端进行，可类比排队，先进先出；</li>
+<li>哈希表：解决哈希冲突时会使用链表，所有冲突的元素都放到一个链表中；</li>
+<li>图：表示多对多的关系，分为有向图和无向图，常用邻接表表示图，其中图的每一个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连。<br>
+双向链表用于需要快速查找前一个和后一个元素的场景。</li>
+<li>高级数据结构：红黑树、B树</li>
+<li>浏览器历史：</li>
+<li>LRU算法：<br>
+环形链表用于需要周期性操作的场景。</li>
+<li>时间片轮转调度算法：</li>
+<li>数据缓冲区：</li>
+</ul></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
