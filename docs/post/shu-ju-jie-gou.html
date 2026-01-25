@@ -160,6 +160,7 @@ string *p4 = <span class="pl-k">new</span> string(<span class="pl-s"><span class
 <li>自动内存管理：底层自动申请、释放堆内存，无需手动 <code class="notranslate">new/delete</code> ；</li>
 <li>自带丰富的增删改查、排序算法，需包含头文件。</li>
 </ul>
+<p>定义与初始化</p>
 <div class="highlight highlight-source-c++"><pre class="notranslate">#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>vector<span class="pl-pds">&gt;</span></span>
 #<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
 
@@ -180,6 +181,40 @@ std::vector&lt;<span class="pl-k">int</span>&gt; vec4 = {<span class="pl-c1">1</
 
 <span class="pl-c"><span class="pl-c">//</span> 用一个容器拷贝初始化</span>
 std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec5</span>(vec1);</pre></div>
+<p>STL标准方式遍历容器：可理解为智能指针，指向容器中的元素，支持移动、取值等操作。</p>
+<div class="highlight highlight-source-c++"><pre class="notranslate">std::vector&lt;<span class="pl-k">int</span>&gt; vec = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">5</span>,<span class="pl-c1">9</span>};
+<span class="pl-c"><span class="pl-c">//</span> 使用迭代器方法遍历vector</span>
+<span class="pl-k">for</span>(std::vector&lt;<span class="pl-k">int</span>&gt;::iterator it = vec.begin();it!=vec.end();it++){
+    <span class="pl-c"><span class="pl-c">//</span> 解引用迭代器对象it</span>
+    std::cout&lt;&lt;*it&lt;&lt;std::endl;
+}
+</pre></div>
+<p>增删改查</p>
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span> vector容器的增删改查</span>
+std::vector&lt;<span class="pl-k">int</span>&gt; vec = {<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>};
+
+<span class="pl-c"><span class="pl-c">//</span> 尾部插入元素4</span>
+vec.push_back(<span class="pl-c1">4</span>);
+<span class="pl-c"><span class="pl-c">//</span> 指定位置插入</span>
+vec.insert(vec.begin()+<span class="pl-c1">1</span>,<span class="pl-c1">100</span>);
+
+<span class="pl-c"><span class="pl-c">//</span> 删除尾部元素</span>
+vec.pop_back();
+<span class="pl-c"><span class="pl-c">//</span> 指定位置删除，删除索引为2的元素</span>
+vec.erase(vec.begin()+<span class="pl-c1">2</span>);
+<span class="pl-c"><span class="pl-c">//</span> 清空所有元素</span>
+vec.clear();
+
+<span class="pl-c"><span class="pl-c">//</span> 获取元素值的两种方式,第一种方式不做越界检查，第二种越界则抛出异常</span>
+<span class="pl-k">int</span> a0 = vec[<span class="pl-c1">0</span>];
+<span class="pl-k">int</span> a1 = vec.at(<span class="pl-c1">1</span>);</pre></div>
+<ul>
+<li>第一个元素：vec.front();</li>
+<li>最后一个元素：vec.back();</li>
+<li>获取元素个数：vec.size();</li>
+<li>获取容量，能存储的元素个数：vec.capacity();</li>
+<li>判断是否为空，返回布尔值：vec.empty();</li>
+</ul>
 <h2>第二章：数组与链表</h2>
 <h3>1.链表的创建与初始化</h3>
 <p>链表为线性结构的一种，每个节点包括自身数据和指向下一个节点的指针</p>
