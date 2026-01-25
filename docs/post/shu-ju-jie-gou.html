@@ -155,11 +155,31 @@ string *p4 = <span class="pl-k">new</span> string(<span class="pl-s"><span class
 <h3>3.C++中动态数组 <code class="notranslate">vector</code></h3>
 <p><code class="notranslate">vector</code> 是 c++标准库STL中提供的动态数组容器，占用的是连续的堆内存，使用前需包含头文件，有以下特点：</p>
 <ul>
-<li>动态扩容：无需提前指定大小，可根据需要自动增长、收缩；<br>
-扩容原理：申请一块更大的堆内存，将原数据拷贝过去，再释放旧内存。</li>
+<li>动态扩容：无需提前指定大小，可根据需要自动增长、收缩；</li>
+<li>扩容原理：申请一块更大的堆内存，将原数据拷贝过去，再释放旧内存；</li>
 <li>自动内存管理：底层自动申请、释放堆内存，无需手动 <code class="notranslate">new/delete</code> ；</li>
 <li>自带丰富的增删改查、排序算法，需包含头文件。</li>
 </ul>
+<div class="highlight highlight-source-c++"><pre class="notranslate">#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>vector<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
+
+<span class="pl-c"><span class="pl-c">//</span> 定义指定类型、指定大小容器,若不指定大小则为空容器</span>
+<span class="pl-c"><span class="pl-c">//</span> 容器默认初始化：int类型初始化为0，string类型初始化为""</span>
+std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec1</span>(<span class="pl-c1">5</span>);
+
+<span class="pl-c"><span class="pl-c">//</span> 指定大小+初始值</span>
+<span class="pl-c"><span class="pl-c">//</span> 创建长度为5，初始值全为10的容器</span>
+std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec2</span>(<span class="pl-c1">5</span>,<span class="pl-c1">10</span>); 
+
+<span class="pl-c"><span class="pl-c">//</span> 使用普通数组拷贝初始化</span>
+<span class="pl-k">int</span> arr[] = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>};
+std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec3</span>(arr,arr+<span class="pl-c1">3</span>);
+
+<span class="pl-c"><span class="pl-c">//</span> 用列表初始化，C++11之后支持</span>
+std::vector&lt;<span class="pl-k">int</span>&gt; vec4 = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>};
+
+<span class="pl-c"><span class="pl-c">//</span> 用一个容器拷贝初始化</span>
+std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec5</span>(vec1);</pre></div>
 <h2>第二章：数组与链表</h2>
 <h3>1.链表的创建与初始化</h3>
 <p>链表为线性结构的一种，每个节点包括自身数据和指向下一个节点的指针</p>
@@ -273,12 +293,16 @@ ListNode* <span class="pl-en">visit</span>(ListNode *head,<span class="pl-k">int
 <li>栈：插入和删除操作都在链表的一端进行，类似一个容器，后进先出；</li>
 <li>队列：插入和删除在链表的两端进行，可类比排队，先进先出；</li>
 <li>哈希表：解决哈希冲突时会使用链表，所有冲突的元素都放到一个链表中；</li>
-<li>图：表示多对多的关系，分为有向图和无向图，常用邻接表表示图，其中图的每一个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连。<br>
-双向链表用于需要快速查找前一个和后一个元素的场景。</li>
+<li>图：表示多对多的关系，分为有向图和无向图，常用邻接表表示图，其中图的每一个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连。</li>
+</ul>
+<p>双向链表用于需要快速查找前一个和后一个元素的场景。</p>
+<ul>
 <li>高级数据结构：红黑树、B树</li>
 <li>浏览器历史：</li>
-<li>LRU算法：<br>
-环形链表用于需要周期性操作的场景。</li>
+<li>LRU算法：</li>
+</ul>
+<p>环形链表用于需要周期性操作的场景。</p>
+<ul>
 <li>时间片轮转调度算法：</li>
 <li>数据缓冲区：</li>
 </ul></div>
