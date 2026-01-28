@@ -45,7 +45,8 @@ printf("年龄：%"PRIu8"", age);
 - 生成最终的可执行文件，```windows``` 对应```.exe``` 后缀，```linux``` 对应```.out``` 后缀。
 ### 3.四个阶段的内存地址分配问题
 
-> 先理解透彻佬的[超全C内存管理](http://113.46.194.199/docs/04_C_stack_heap/index.html)
+> 先理解佬的[超全C内存管理](http://113.46.194.199/docs/04_C_stack_heap/index.html)&[视频版](https://www.bilibili.com/video/BV1Sepyz7ECL/?spm_id_from=333.1387.0.0&vd_source=e528df65ea1dcac82a3e9ee15bf04f6c)
+
 
 相对地址：相对于当前目标文件的偏移地址，汇编阶段生成；
 绝对地址：程序运行时在内存中的真实地址，链接阶段生成；
