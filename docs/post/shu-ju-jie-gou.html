@@ -29,7 +29,7 @@
 <meta property="og:url" content="https://HappyDog-yy.github.io/GmeekBlog/post/shu-ju-jie-gou.html">
 <meta property="og:image" content="https://github.com/user-attachments/assets/00cd8470-961f-4cae-9688-0708e6132300">
 <title>数据结构</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -53,17 +53,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-.copy-feedback {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 50px;
-    color: var(--color-fg-on-emphasis);
-    background-color: var(--color-fg-muted);
-    border-radius: 3px;
-    padding: 5px 8px;
-    font-size: 12px;
-}
+
 </style>
 
 
@@ -104,13 +94,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>内存分配成功：返回分配内存的起始地址；</li>
 <li>内存分配失败：返回空指针 <code class="notranslate">NULL</code> ，可能由内存不足等原因导致。</li>
 </ul>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-smi">int</span> <span class="pl-c1">*</span><span class="pl-s1">big_ptr</span> <span class="pl-c1">=</span> (<span class="pl-smi">int</span> <span class="pl-c1">*</span>)<span class="pl-en">malloc</span>(<span class="pl-k">sizeof</span>(<span class="pl-smi">int</span>)<span class="pl-c1">*</span><span class="pl-c1">100000000000</span>);</pre></div>
+<pre lang="c" class="notranslate"><code class="notranslate">int *big_ptr = (int *)malloc(sizeof(int)*100000000000);
+</code></pre>
 <p>若系统没有这么大的连续空间，就会分配失败，返回空指针 <code class="notranslate">NULL</code> 。</p>
 <ul>
 <li>释放堆内存，并置空防止野指针</li>
 </ul>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-en">free</span>(<span class="pl-s1">ptr</span>);
-<span class="pl-s1">ptr</span> <span class="pl-c1">=</span> <span class="pl-c1">NULL</span>;</pre></div>
+<pre lang="c" class="notranslate"><code class="notranslate">free(ptr);
+ptr = NULL;
+</code></pre>
 <h3>2.C++中的 <code class="notranslate">new</code> 关键字使用</h3>
 <p><code class="notranslate">new</code> ：C++中的关键字，不是函数，无需引入任何头文件便可使用。</p>
 <ul>
@@ -129,29 +121,31 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>无初始值：基本类型是随机值，类对象调用默认构造函数；</li>
 <li>有初始值：内存被初始化为指定值。</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span>基本类型int</span>
-<span class="pl-c"><span class="pl-c">//</span>1.不初始化，为内存中的随机垃圾值，*p1 = 56378678</span>
-<span class="pl-k">int</span> *p1 = <span class="pl-k">new</span> <span class="pl-k">int</span>;
+<pre lang="cpp" class="notranslate"><code class="notranslate">//基本类型int
+//1.不初始化，为内存中的随机垃圾值，*p1 = 56378678
+int *p1 = new int;
 
-<span class="pl-c"><span class="pl-c">//</span>2.显示初始化为指定值，*p2 = 99</span>
-<span class="pl-k">int</span> *p2 = <span class="pl-k">new</span> <span class="pl-k">int</span>(<span class="pl-c1">99</span>);
+//2.显示初始化为指定值，*p2 = 99
+int *p2 = new int(99);
 
-<span class="pl-c"><span class="pl-c">//</span>string对象</span>
-<span class="pl-c"><span class="pl-c">//</span>3.不初始化，调用string类的默认构造函数(初始化为空字符串)</span>
-string *p3 = <span class="pl-k">new</span> string;
+//string对象
+//3.不初始化，调用string类的默认构造函数(初始化为空字符串)
+string *p3 = new string;
 
-<span class="pl-c"><span class="pl-c">//</span>4.初始化为指定内容</span>
-string *p4 = <span class="pl-k">new</span> string(<span class="pl-s"><span class="pl-pds">"</span>Hello<span class="pl-pds">"</span></span>);</pre></div>
+//4.初始化为指定内容
+string *p4 = new string("Hello");
+</code></pre>
 <p>2.分配数组：<code class="notranslate">类型* 指针 = new 类型[数组长度](初始化值)；</code></p>
 <ul>
 <li>!!!释放内存时使用 <code class="notranslate">delete[]</code></li>
 <li><code class="notranslate">()</code> 是c++11后开始支持，所有元素初始化为0/空</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span>1.使用()将数组元素全部初始化为\0</span>
-<span class="pl-k">char</span> *p1 = <span class="pl-k">new</span> <span class="pl-k">char</span>[<span class="pl-c1">5</span>]();
+<pre lang="cpp" class="notranslate"><code class="notranslate">//1.使用()将数组元素全部初始化为\0
+char *p1 = new char[5]();
 
-<span class="pl-c"><span class="pl-c">//</span>2.不初始化，元素为随机值</span>
-<span class="pl-k">int</span> * p2 = <span class="pl-k">new</span> <span class="pl-k">int</span>[<span class="pl-c1">10</span>];</pre></div>
+//2.不初始化，元素为随机值
+int * p2 = new int[10];
+</code></pre>
 <h3>3.C++中动态数组 <code class="notranslate">vector</code></h3>
 <p><code class="notranslate">vector</code> 是 c++标准库STL中提供的动态数组容器，占用的是<strong>连续的堆内存</strong>，使用前需包含头文件****，有以下特点：</p>
 <ul>
@@ -161,53 +155,56 @@ string *p4 = <span class="pl-k">new</span> string(<span class="pl-s"><span class
 <li>自带丰富的增删改查、排序算法，需包含头文件。</li>
 </ul>
 <p>定义与初始化</p>
-<div class="highlight highlight-source-c++"><pre class="notranslate">#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>vector<span class="pl-pds">&gt;</span></span>
-#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
+<pre lang="cpp" class="notranslate"><code class="notranslate">#include &lt;vector&gt;
+#include &lt;iostream&gt;
 
-<span class="pl-c"><span class="pl-c">//</span> 定义指定类型、指定大小容器,若不指定大小则为空容器</span>
-<span class="pl-c"><span class="pl-c">//</span> 容器默认初始化：int类型初始化为0，string类型初始化为""</span>
-std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec1</span>(<span class="pl-c1">5</span>);
+// 定义指定类型、指定大小容器,若不指定大小则为空容器
+// 容器默认初始化：int类型初始化为0，string类型初始化为""
+std::vector&lt;int&gt; vec1(5);
 
-<span class="pl-c"><span class="pl-c">//</span> 指定大小+初始值</span>
-<span class="pl-c"><span class="pl-c">//</span> 创建长度为5，初始值全为10的容器</span>
-std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec2</span>(<span class="pl-c1">5</span>,<span class="pl-c1">10</span>); 
+// 指定大小+初始值
+// 创建长度为5，初始值全为10的容器
+std::vector&lt;int&gt; vec2(5,10); 
 
-<span class="pl-c"><span class="pl-c">//</span> 使用普通数组拷贝初始化</span>
-<span class="pl-k">int</span> arr[] = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>};
-std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec3</span>(arr,arr+<span class="pl-c1">3</span>);
+// 使用普通数组拷贝初始化
+int arr[] = {1,2,3};
+std::vector&lt;int&gt; vec3(arr,arr+3);
 
-<span class="pl-c"><span class="pl-c">//</span> 用列表初始化，C++11之后支持</span>
-std::vector&lt;<span class="pl-k">int</span>&gt; vec4 = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>};
+// 用列表初始化，C++11之后支持
+std::vector&lt;int&gt; vec4 = {1,2,3,4};
 
-<span class="pl-c"><span class="pl-c">//</span> 用一个容器拷贝初始化</span>
-std::vector&lt;<span class="pl-k">int</span>&gt; <span class="pl-en">vec5</span>(vec1);</pre></div>
+// 用一个容器拷贝初始化
+std::vector&lt;int&gt; vec5(vec1);
+</code></pre>
 <p><strong>STL标准方式遍历容器</strong>：可理解为智能指针，指向容器中的元素，支持移动、取值等操作。</p>
-<div class="highlight highlight-source-c++"><pre class="notranslate">std::vector&lt;<span class="pl-k">int</span>&gt; vec = {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">5</span>,<span class="pl-c1">9</span>};
-<span class="pl-c"><span class="pl-c">//</span> 使用迭代器方法遍历vector</span>
-<span class="pl-k">for</span>(std::vector&lt;<span class="pl-k">int</span>&gt;::iterator it = vec.begin();it!=vec.end();it++){
-    <span class="pl-c"><span class="pl-c">//</span> 解引用迭代器对象it</span>
+<pre lang="cpp" class="notranslate"><code class="notranslate">std::vector&lt;int&gt; vec = {1,2,5,9};
+// 使用迭代器方法遍历vector
+for(std::vector&lt;int&gt;::iterator it = vec.begin();it!=vec.end();it++){
+    // 解引用迭代器对象it
     std::cout&lt;&lt;*it&lt;&lt;std::endl;
 }
-</pre></div>
+
+</code></pre>
 <p>增删改查</p>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span> vector容器的增删改查</span>
-std::vector&lt;<span class="pl-k">int</span>&gt; vec = {<span class="pl-c1">0</span>,<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>};
+<pre lang="cpp" class="notranslate"><code class="notranslate">// vector容器的增删改查
+std::vector&lt;int&gt; vec = {0,1,2,3};
 
-<span class="pl-c"><span class="pl-c">//</span> 尾部插入元素4</span>
-vec.push_back(<span class="pl-c1">4</span>);
-<span class="pl-c"><span class="pl-c">//</span> 指定位置插入</span>
-vec.insert(vec.begin()+<span class="pl-c1">1</span>,<span class="pl-c1">100</span>);
+// 尾部插入元素4
+vec.push_back(4);
+// 指定位置插入
+vec.insert(vec.begin()+1,100);
 
-<span class="pl-c"><span class="pl-c">//</span> 删除尾部元素</span>
+// 删除尾部元素
 vec.pop_back();
-<span class="pl-c"><span class="pl-c">//</span> 指定位置删除，删除索引为2的元素</span>
-vec.erase(vec.begin()+<span class="pl-c1">2</span>);
-<span class="pl-c"><span class="pl-c">//</span> 清空所有元素</span>
+// 指定位置删除，删除索引为2的元素
+vec.erase(vec.begin()+2);
+// 清空所有元素
 vec.clear();
 
-<span class="pl-c"><span class="pl-c">//</span> 获取元素值的两种方式,第一种方式不做越界检查，第二种越界则抛出异常</span>
-<span class="pl-k">int</span> a0 = vec[<span class="pl-c1">0</span>];
-<span class="pl-k">int</span> a1 = vec.at(<span class="pl-c1">1</span>);</pre></div>
+// 获取元素值的两种方式,第一种方式不做越界检查，第二种越界则抛出异常
+int a0 = vec[0];
+int a1 = vec.at(1);
+</code></pre>
 <ul>
 <li>第一个元素：vec.front();</li>
 <li>最后一个元素：vec.back();</li>
@@ -216,147 +213,152 @@ vec.clear();
 <li>判断是否为空，返回布尔值：vec.empty();</li>
 </ul>
 <p>动态数组代码实现：包括元素数量记录、扩容、增删改查等操作。</p>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-en">List</span>{
-    <span class="pl-k">private:</span>
-        <span class="pl-k">int</span> *arr; <span class="pl-c"><span class="pl-c">//</span>存储列表元素</span>
-        <span class="pl-c"><span class="pl-c">//</span> c++ 11开始支持直接类内初始化</span>
-        <span class="pl-k">int</span> listCapacity = <span class="pl-c1">10</span>;  <span class="pl-c"><span class="pl-c">//</span>数组容量</span>
-        <span class="pl-k">int</span> listSize=<span class="pl-c1">0</span>; <span class="pl-c"><span class="pl-c">//</span>记录当前数组数量</span>
-        <span class="pl-k">int</span> extendRatio = <span class="pl-c1">2</span>; <span class="pl-c"><span class="pl-c">//</span>扩容倍数默认为2</span>
+<pre lang="cpp" class="notranslate"><code class="notranslate">class List{
+    private:
+        int *arr; //存储列表元素
+        // c++ 11开始支持直接类内初始化
+        int listCapacity = 10;  //数组容量
+        int listSize=0; //记录当前数组数量
+        int extendRatio = 2; //扩容倍数默认为2
 
-    <span class="pl-k">public:</span>
-        <span class="pl-c"><span class="pl-c">//</span> 构造函数：分配内存空间</span>
-        <span class="pl-en">List</span>(){arr = <span class="pl-k">new</span> <span class="pl-k">int</span>[listCapacity];}
-        <span class="pl-c"><span class="pl-c">//</span> 析构函数</span>
-        <span class="pl-en">~List</span>(){<span class="pl-k">delete[]</span> arr;}
-        <span class="pl-c"><span class="pl-c">//</span> 获取列表容量</span>
-        <span class="pl-k">int</span> <span class="pl-en">getCapacity</span>(){<span class="pl-k">return</span> listCapacity;}
-        <span class="pl-c"><span class="pl-c">//</span> 获取列表当前元素数量</span>
-        <span class="pl-k">int</span> <span class="pl-en">getSize</span>(){<span class="pl-k">return</span> listSize;}
+    public:
+        // 构造函数：分配内存空间
+        List(){arr = new int[listCapacity];}
+        // 析构函数
+        ~List(){delete[] arr;}
+        // 获取列表容量
+        int getCapacity(){return listCapacity;}
+        // 获取列表当前元素数量
+        int getSize(){return listSize;}
 
-        <span class="pl-c"><span class="pl-c">//</span> 访问索引为index的元素</span>
-        <span class="pl-k">int</span> <span class="pl-en">getElement</span>(<span class="pl-k">int</span> index){
-            <span class="pl-c"><span class="pl-c">//</span> 注意index = getSize()也是不合法的情况</span>
-            <span class="pl-k">if</span>(index&lt;<span class="pl-c1">0</span>||index &gt;= <span class="pl-c1">getSize</span>())
-                <span class="pl-k">throw</span> <span class="pl-smi">std::out_of_range</span>(<span class="pl-s"><span class="pl-pds">"</span>索引越界<span class="pl-pds">"</span></span>);
-            <span class="pl-k">return</span> arr[index];
+        // 访问索引为index的元素
+        int getElement(int index){
+            // 注意index = getSize()也是不合法的情况
+            if(index&lt;0||index &gt;= getSize())
+                throw std::out_of_range("索引越界");
+            return arr[index];
         }
 
-        <span class="pl-c"><span class="pl-c">//</span> 更新索引为index的元素</span>
-        <span class="pl-k">void</span> <span class="pl-en">change</span>(<span class="pl-k">int</span> index,<span class="pl-k">int</span> num){
-            <span class="pl-k">if</span>(index&lt;<span class="pl-c1">0</span>||index &gt;= <span class="pl-c1">getSize</span>())
-                <span class="pl-k">throw</span> <span class="pl-smi">std::out_of_range</span>(<span class="pl-s"><span class="pl-pds">"</span>索引越界<span class="pl-pds">"</span></span>);
+        // 更新索引为index的元素
+        void change(int index,int num){
+            if(index&lt;0||index &gt;= getSize())
+                throw std::out_of_range("索引越界");
             arr[index] = num;
         }
 
-        <span class="pl-c"><span class="pl-c">//</span> 在尾部添加元素，注意检查是否超过容量capacity</span>
-        <span class="pl-k">void</span> <span class="pl-en">add_in_end</span>(<span class="pl-k">int</span> num){
-            <span class="pl-k">if</span>(<span class="pl-c1">getSize</span>() == <span class="pl-c1">getCapacity</span>())
-                <span class="pl-c1">extendCapacity</span>();
-            arr[<span class="pl-c1">getSize</span>()] = num;
+        // 在尾部添加元素，注意检查是否超过容量capacity
+        void add_in_end(int num){
+            if(getSize() == getCapacity())
+                extendCapacity();
+            arr[getSize()] = num;
             listSize ++; 
         }
 
-        <span class="pl-c"><span class="pl-c">//</span> 在中间索引index处插入元素num</span>
-        <span class="pl-k">void</span> <span class="pl-en">insert</span>(<span class="pl-k">int</span> index,<span class="pl-k">int</span> num){
-            <span class="pl-k">if</span>(index&lt;<span class="pl-c1">0</span>||index &gt;= <span class="pl-c1">getSize</span>())
-                <span class="pl-k">throw</span> <span class="pl-smi">std::out_of_range</span>(<span class="pl-s"><span class="pl-pds">"</span>索引越界<span class="pl-pds">"</span></span>);
-            <span class="pl-k">if</span>(<span class="pl-c1">getSize</span>()==<span class="pl-c1">getCapacity</span>())
-                <span class="pl-c1">extendCapacity</span>();
-            <span class="pl-k">for</span>(<span class="pl-k">int</span> i = <span class="pl-c1">getSize</span>()-<span class="pl-c1">1</span>;i&gt;index;i--)
-                arr[i] = arr[i-<span class="pl-c1">1</span>];
+        // 在中间索引index处插入元素num
+        void insert(int index,int num){
+            if(index&lt;0||index &gt;= getSize())
+                throw std::out_of_range("索引越界");
+            if(getSize()==getCapacity())
+                extendCapacity();
+            for(int i = getSize()-1;i&gt;index;i--)
+                arr[i] = arr[i-1];
             arr[index] = num;
             listSize ++;
         }
 
-        <span class="pl-c"><span class="pl-c">//</span> 删除元素并返回该元素</span>
-        <span class="pl-k">int</span> <span class="pl-en">remove</span>(<span class="pl-k">int</span> index){
-            <span class="pl-k">if</span>(index&lt;<span class="pl-c1">0</span>||index&gt;=<span class="pl-c1">getSize</span>())
-                <span class="pl-k">throw</span> <span class="pl-smi">std::out_of_range</span>(<span class="pl-s"><span class="pl-pds">"</span>索引越界<span class="pl-pds">"</span></span>);
-            <span class="pl-k">int</span> num = arr[index];
-            <span class="pl-k">for</span>(<span class="pl-k">int</span> i = index;i&lt;<span class="pl-c1">getSize</span>()-<span class="pl-c1">1</span>;i++)
-                arr[i] = arr[i+<span class="pl-c1">1</span>];
+        // 删除元素并返回该元素
+        int remove(int index){
+            if(index&lt;0||index&gt;=getSize())
+                throw std::out_of_range("索引越界");
+            int num = arr[index];
+            for(int i = index;i&lt;getSize()-1;i++)
+                arr[i] = arr[i+1];
             listSize --;
-            <span class="pl-k">return</span> num;
+            return num;
         }
 
-        <span class="pl-c"><span class="pl-c">//</span> 扩容函数,默认倍数为2</span>
-        <span class="pl-k">void</span> <span class="pl-en">extendCapacity</span>(){
-            <span class="pl-c"><span class="pl-c">//</span> 新建数组长度为原来的extendRatio倍</span>
-            <span class="pl-c"><span class="pl-c">//</span> 若直接给arr申请更大的内存会覆盖掉原来的地址，导致原数据丢失</span>
-            <span class="pl-c"><span class="pl-c">//</span> 指针tmp可解决该问题</span>
-            <span class="pl-k">int</span> newCapacity = extendRatio*listCapacity;
-            <span class="pl-k">int</span> *tmp = arr;
-            arr = <span class="pl-k">new</span> <span class="pl-k">int</span>[newCapacity];
-            <span class="pl-k">for</span>(<span class="pl-k">int</span> i=<span class="pl-c1">0</span>;i&lt;<span class="pl-c1">getSize</span>();i++){
+        // 扩容函数,默认倍数为2
+        void extendCapacity(){
+            // 新建数组长度为原来的extendRatio倍
+            // 若直接给arr申请更大的内存会覆盖掉原来的地址，导致原数据丢失
+            // 指针tmp可解决该问题
+            int newCapacity = extendRatio*listCapacity;
+            int *tmp = arr;
+            arr = new int[newCapacity];
+            for(int i=0;i&lt;getSize();i++){
                 arr[i] = tmp[i];
             }
-            <span class="pl-c"><span class="pl-c">//</span> 释放内存</span>
-            <span class="pl-k">delete[]</span> tmp;
-            tmp = <span class="pl-c1">nullptr</span>;
+            // 释放内存
+            delete[] tmp;
+            tmp = nullptr;
             listCapacity = newCapacity;
         }
-};</pre></div>
+};
+</code></pre>
 <h2>第二章：数组与链表</h2>
 <h3>1.链表的创建与初始化</h3>
 <p>链表为线性结构的一种，每个节点包括自身数据和指向下一个节点的指针</p>
 <ul>
 <li>C++实现链表的创建与初始化</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span>节点结构体</span>
-<span class="pl-k">typedef</span> <span class="pl-k">struct</span> <span class="pl-en">ListNode</span>{
-<span class="pl-k">int</span> val;
+<pre lang="cpp" class="notranslate"><code class="notranslate">//节点结构体
+typedef struct ListNode{
+int val;
 listNode* next;
-<span class="pl-en">ListNode</span>(<span class="pl-k">int</span> a):val(a),next(<span class="pl-c1">nullptr</span>){}
+ListNode(int a):val(a),next(nullptr){}
 }ListNode;
 
-<span class="pl-c"><span class="pl-c">//</span>初始化节点</span>
-ListNode* n0 = <span class="pl-k">new</span> ListNode(<span class="pl-c1">0</span>);
-ListNode* n1 = <span class="pl-k">new</span> ListNode(<span class="pl-c1">1</span>);
-ListNode* n2 = <span class="pl-k">new</span> ListNode(<span class="pl-c1">2</span>);
-ListNode* n3 = <span class="pl-k">new</span> ListNode(<span class="pl-c1">3</span>);
-ListNode* n4 = <span class="pl-k">new</span> ListNode(<span class="pl-c1">4</span>);
-<span class="pl-c"><span class="pl-c">//</span>串联节点</span>
+//初始化节点
+ListNode* n0 = new ListNode(0);
+ListNode* n1 = new ListNode(1);
+ListNode* n2 = new ListNode(2);
+ListNode* n3 = new ListNode(3);
+ListNode* n4 = new ListNode(4);
+//串联节点
 n0-&gt;next = n1;
 n1-&gt;next = n2;
 n2-&gt;next = n3;
 n3-&gt;next = n4;
-<span class="pl-c"><span class="pl-c">//</span>实现的链表为0-&gt;1-&gt;2-&gt;3-&gt;4</span></pre></div>
+//实现的链表为0-&gt;1-&gt;2-&gt;3-&gt;4
+</code></pre>
 <p>由于C语言中不可在结构中创建函数，因此单独写一个用于节点初始化的函数</p>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-smi">ListNode</span><span class="pl-c1">*</span> <span class="pl-en">newListNode</span>(<span class="pl-smi">int</span> <span class="pl-s1">x</span>){
-    <span class="pl-c">//声明并分配堆内存</span>
-    <span class="pl-smi">ListNode</span><span class="pl-c1">*</span> <span class="pl-s1">node</span>;
-    <span class="pl-s1">node</span> <span class="pl-c1">=</span> (<span class="pl-smi">ListNode</span><span class="pl-c1">*</span>)<span class="pl-en">malloc</span>(<span class="pl-k">sizeof</span>(<span class="pl-s1">Listnode</span>));
-    <span class="pl-c">//初始化</span>
-    <span class="pl-s1">node</span><span class="pl-c1">-&gt;</span><span class="pl-c1">val</span> <span class="pl-c1">=</span> <span class="pl-s1">x</span>;
-    <span class="pl-s1">node</span><span class="pl-c1">-&gt;</span><span class="pl-c1">next</span> <span class="pl-c1">=</span> <span class="pl-c1">nullptr</span>;
-    <span class="pl-k">return</span> <span class="pl-s1">node</span>;
-}</pre></div>
+<pre lang="c" class="notranslate"><code class="notranslate">ListNode* newListNode(int x){
+    //声明并分配堆内存
+    ListNode* node;
+    node = (ListNode*)malloc(sizeof(Listnode));
+    //初始化
+    node-&gt;val = x;
+    node-&gt;next = nullptr;
+    return node;
+}
+</code></pre>
 <p>通常将头节点作为链表的代称，上述列表可称为 <code class="notranslate">链表n0</code> 。</p>
 <h3>2.链表的插入与删除</h3>
 <ul>
 <li>插入节点仅需改变指针即可，注意顺序，避免链表断裂</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span>在节点n0之后插入节点p</span>
-<span class="pl-k">void</span> <span class="pl-en">insert</span> (ListNode *n0,ListNode* p){
-   ListNode *n1 = n0-&gt;<span class="pl-smi">next</span>;
-   p-&gt;<span class="pl-smi">next</span> = n1;
-   n0-&gt;<span class="pl-smi">next</span> = p;
-}</pre></div>
+<pre lang="cpp" class="notranslate"><code class="notranslate">//在节点n0之后插入节点p
+void insert (ListNode *n0,ListNode* p){
+   ListNode *n1 = n0-&gt;next;
+   p-&gt;next = n1;
+   n0-&gt;next = p;
+}
+</code></pre>
 <p>其中n1为临时指针变量，即使顺序错了也不会导致指针断裂，容错更高。</p>
 <ul>
 <li>删除节点：链表由n0-&gt;p-&gt;n1变为n0-&gt;n1</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span> 删除n0之后的首个节点</span>
-<span class="pl-k">void</span> <span class="pl-en">delete_node</span>(ListNode *n0){
-   <span class="pl-k">if</span>(n0-&gt;<span class="pl-smi">next</span> == <span class="pl-c1">nullptr</span>){
-       <span class="pl-k">return</span>;
+<pre lang="cpp" class="notranslate"><code class="notranslate">// 删除n0之后的首个节点
+void delete_node(ListNode *n0){
+   if(n0-&gt;next == nullptr){
+       return;
    }
-   ListNode *p = n0-&gt;<span class="pl-smi">next</span>;
-   ListNode *n1 = p-&gt;<span class="pl-smi">next</span>;
-   n0-&gt;<span class="pl-smi">next</span> = n1;
-   <span class="pl-k">delete</span> p;
-}</pre></div>
+   ListNode *p = n0-&gt;next;
+   ListNode *n1 = p-&gt;next;
+   n0-&gt;next = n1;
+   delete p;
+}
+</code></pre>
 <p>上述删除节点代码中p(必须)和n1的作用</p>
 <ul>
 <li>p：保存要删除的节点地址，后续才能通过 <code class="notranslate">delete</code> 释放内存，同时避免先执行 <code class="notranslate">n0-&gt;next = n1</code> 导致要删除的节点被覆盖。</li>
@@ -364,33 +366,35 @@ n3-&gt;next = n4;
 </ul>
 <h3>3.链表的访问与查找</h3>
 <p>已知索引时，数组访问任意元素的时间复杂度为O(1)，而链表访问索引为i的元素时，需要循环i-1次，时间复杂度为O(n)。</p>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span>访问链表中索引为index的元素</span>
-<span class="pl-c"><span class="pl-c">//</span> 访问索引为index的元素，传入头节点head</span>
-ListNode* <span class="pl-en">visit</span>(ListNode *head,<span class="pl-k">int</span> index){
-   <span class="pl-k">for</span>(<span class="pl-k">int</span> i=<span class="pl-c1">0</span>;i&lt;index;i++){
-       <span class="pl-k">if</span> (head == <span class="pl-c1">nullptr</span>){
-           <span class="pl-c"><span class="pl-c">//</span>链表长度小于要访问的索引的情况</span>
-           <span class="pl-k">return</span> <span class="pl-c1">nullptr</span>;
+<pre lang="cpp" class="notranslate"><code class="notranslate">//访问链表中索引为index的元素
+// 访问索引为index的元素，传入头节点head
+ListNode* visit(ListNode *head,int index){
+   for(int i=0;i&lt;index;i++){
+       if (head == nullptr){
+           //链表长度小于要访问的索引的情况
+           return nullptr;
        }
-       head = head-&gt;<span class="pl-smi">next</span>;
+       head = head-&gt;next;
    }
-   <span class="pl-k">return</span> head;
-}</pre></div>
+   return head;
+}
+</code></pre>
 <ul>
 <li>查找链表中值为 <code class="notranslate">index</code> 的节点</li>
 <li>找到返回其索引，找不到返回-1</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">int</span> <span class="pl-en">find</span>(ListNode *head,<span class="pl-k">int</span> target){
-    <span class="pl-k">int</span> index=<span class="pl-c1">0</span>;
-    <span class="pl-k">while</span>(head != <span class="pl-c1">nullptr</span>){
-        <span class="pl-k">if</span>(head-&gt;<span class="pl-smi">val</span> == target){
-            <span class="pl-k">return</span> index;
+<pre lang="cpp" class="notranslate"><code class="notranslate">int find(ListNode *head,int target){
+    int index=0;
+    while(head != nullptr){
+        if(head-&gt;val == target){
+            return index;
         }
-        head = head-&gt;<span class="pl-smi">next</span>;
+        head = head-&gt;next;
         index ++;
     }
-    <span class="pl-k">return</span> -<span class="pl-c1">1</span>;
-}</pre></div>
+    return -1;
+}
+</code></pre>
 <h3>4.链表VS数组效率对比</h3>
 <ul>
 <li>数组<br>
@@ -447,7 +451,7 @@ if(""!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -520,70 +524,7 @@ function iFrameLoading(){
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const createClipboardHTML = (codeContent, additionalClasses = '') => `
-        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
-        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
-            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
-                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
-                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
-            </clipboard-copy>
-            <div class="copy-feedback">Copied!</div>
-        </div>
-    `;
 
-    const handleCodeElements = (selector = '') => {
-        document.querySelectorAll(selector).forEach(codeElement => {
-            const codeContent = codeElement.innerHTML;
-            const newStructure = document.createElement('div');
-            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
-            newStructure.innerHTML = createClipboardHTML(codeContent);
-
-            const parentElement = codeElement.parentElement;
-            if (selector.includes('highlight')) {
-                parentElement.insertBefore(newStructure, codeElement.nextSibling);
-                parentElement.removeChild(codeElement);
-            } else {
-                parentElement.parentElement.replaceChild(newStructure, parentElement);
-            }
-        });
-    };
-
-    handleCodeElements('pre.notranslate > code.notranslate');
-    handleCodeElements('div.highlight > pre.notranslate');
-
-    let currentFeedback = null;
-    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
-        copyButton.addEventListener('click', () => {
-            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-
-            const copyIcon = copyButton.querySelector('.octicon-copy');
-            const checkIcon = copyButton.querySelector('.octicon-check');
-            const copyFeedback = copyButton.nextElementSibling;
-
-            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
-            currentFeedback = copyFeedback;
-
-            copyIcon.classList.add('d-none');
-            checkIcon.classList.remove('d-none');
-            copyFeedback.style.display = 'block';
-            copyButton.style.borderColor = 'var(--color-success-fg)';
-
-            setTimeout(() => {
-                copyIcon.classList.remove('d-none');
-                checkIcon.classList.add('d-none');
-                copyFeedback.style.display = 'none';
-                copyButton.style.borderColor = '';
-            }, 2000);
-        });
-    });
-});
 
 </script>
 
